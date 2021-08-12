@@ -53,7 +53,7 @@
 	</div>
 {/if}
 
-{#if missingKeys.length}
+{#if input && missingKeys.length}
 	<div class="flex items-center px-6 py-4 mb-6 text-yellow-500 bg-yellow-200 rounded-md">
 		<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 fill-current">
 			<path
@@ -89,7 +89,7 @@
 	</button>
 </div>
 
-{#if missingKeys.length}
+{#if input && missingKeys.length}
 	<div>
 		<hr class="my-4" />
 
