@@ -1,9 +1,8 @@
 <script>
 	import { isJson } from '$lib/utils/is-json';
 	import { transform } from '$lib/utils/transform';
-	import configExample from '$lib/utils/config';
 
-	let input = JSON.stringify(configExample);
+	let input = JSON.stringify({});
 	let copied = false;
 	let errorMessage = null;
 	let transformedJson = JSON.stringify({}, null, 2);
