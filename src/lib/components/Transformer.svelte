@@ -2,7 +2,7 @@
 	import { isJson } from '$lib/utils/is-json';
 	import { transform } from '$lib/utils/transform';
 
-	let input = JSON.stringify({});
+	let input = '';
 	let copied = false;
 	let errorMessage = null;
 	let transformedJson = JSON.stringify({}, null, 2);
