@@ -66,7 +66,7 @@
 	</div>
 {/if}
 
-<textarea bind:value={input} class="w-full px-2 py-1 border-2 border-gray-300 rounded h-80" />
+<textarea bind:value={input} placeholder="Paste configuration object copied from consul" class="w-full px-2 py-1 border-2 border-gray-300 rounded h-80" />
 
 <pre
 	class="px-2 pt-1.5 pb-1 mt-6 bg-gray-200 border border-gray-300 rounded-md whitespace-pre-wrap max-h-96 overflow-scroll">
