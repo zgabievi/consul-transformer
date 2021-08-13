@@ -1,4 +1,5 @@
 import { dotToObj } from './dot-to-obj';
+import { findInGroup } from './find-in-group';
 import { objValueByKeyArray } from './obj-value-by-key-array';
 
 const schema = {
@@ -104,17 +105,15 @@ const schema = {
 	TOURNAMENTS_GAME_ID: 'TournamentsGameId',
 	REGISTRATION_MIN_AGE: 'MinAgeForRegistration',
 	PAYMENT_INTEGRATION: 'PaymentIntegration',
-	'REGISTRATION.KYC_POPUP': 'HasKycPopup',
-	'REGISTRATION.SHOW_SUCCESS_POPUP_BUTTON': 'ShowDepositButtonInRegistrationSuccessPopup',
+	'REGISTRATION.KYC_POPUP': 'HasKyc',
+	'REGISTRATION.SHOW_SUCCESS_POPUP_BUTTON': 'RegistrationSuccessPopupType',
 	'REGISTRATION.REDIRECT_AFTER_LOGIN_URL': 'PageToRedirectAfterRegistration',
 	DEFAULT_COUNTRY_DIAL_IN: 'DialCodeForUserIdentifier',
 	PASSWORD_EXPIRATION_DAYS: 'PasswordExpirationDays',
 	SESSION_EXPIRATION_TIME: 'SessionTerminationDelay',
 	RESTRICTED_SESSION_LIMIT: 'NeedConfirmationToActivateSessionLimit',
 	KYC_PROVIDER: 'KycProvider',
-	'PROVIDERS.JUMIO.PROVIDER_ID': 'KycProviderOptions.Jumio.ProviderId',
-	'PROVIDERS.JUMIO.WORKFLOW_ID': 'KycProviderOptions.Jumio.WorkflowId',
-	'PROVIDERS.JUMIO.LOCALE_MAP': 'KycProviderOptions.Jumio.LocaleMap',
+	PROVIDERS: 'KycProviderOptions',
 	REDIRECT_BY_COUNTRY: 'RedirectByCountry',
 	DOCUMENT_ISSUING_AUTHORITIES: 'DocumentIssuingAuthoritiesByCountry',
 	'LIMITS.LIMIT_ACTIVATION_TIME': 'HoursNeededForLimitActivation',
@@ -126,8 +125,6 @@ const schema = {
 	'GAME.OPEN_STRATEGY': 'GameOpenStrategy',
 	'GAME.POPUP_WIDTH': 'GamePopupWidth',
 	'GAME.POPUP_HEIGHT': 'GamePopupHeight',
-	'SERVICES.UFG': 'UserFavoriteGamesProviderID',
-	'SERVICES.RPG': 'RecentlyPlayedGamesProviderID',
 	'SERVICES.DOC': 'DocumentUploadProviderID',
 	'SERVICES.SIS': 'SingularIntegrationSystemProviderID',
 	'SERVICES.PAY': 'PaymentsProviderID',
@@ -174,18 +171,37 @@ export const transform = (obj) => {
 	const missingKeys = [];
 
 	Object.entries(schema).forEach(([dottedKey, newKey]) => {
+		const group = findInGroup(newKey);
 		const objNesting = dottedKey.split('.');
 		const value = objValueByKeyArray(workObj, objNesting);
 
+		if (!group in newObj) {
+			newObj[group] = {};
+		}
+
 		if (value !== undefined) {
+			let transformedValue = value;
+
 			if (newKey === 'DocumentFields') {
-				newObj[newKey] = transformDocumentFields(value);
+				transformedValue = transformDocumentFields(value);
 			} else if (newKey === 'DocumentUploadForm') {
-				newObj[newKey] = transformDocumentUploadForm(value);
-			} else {
-				newObj[newKey] = value;
+				transformedValue = transformDocumentUploadForm(value);
+			} else if (newKey === 'RegistrationSuccessPopupType') {
+				transformedValue = transformRegistrationSuccessPopupType(workObj);
+			} else if (newKey === 'KycProviderOptions') {
+				transformedValue = transformKycProviderOptions(value);
 			}
+
+			newObj[group] = {
+				...newObj[group],
+				[newKey]: transformedValue
+			};
 		} else {
+			newObj[group] = {
+				...newObj[group],
+				[newKey]: 'N/A'
+			};
+
 			missingKeys.push({ oldKey: dottedKey, newKey });
 		}
 	});
@@ -252,4 +268,36 @@ function transformDocumentUploadForm(value) {
 	});
 
 	return transformedValue;
+}
+
+function transformKycProviderOptions(value) {
+	const transformedValue = {};
+
+	Object.entries(value).forEach(([providerName, providerObj]) => {
+		const providerNameCapitalized = providerName === 'JUMIO' ? 'Jumio' : providerName;
+		transformedValue[providerNameCapitalized] = {};
+
+		if ('WORKFLOW_ID' in providerObj) {
+			transformedValue[providerNameCapitalized]['WorkflowId'] = providerObj.WORKFLOW_ID;
+		}
+
+		if ('LOCALE_MAP' in providerObj) {
+			transformedValue[providerNameCapitalized]['LocaleMap'] = providerObj.LOCALE_MAP;
+		}
+	});
+
+	return transformedValue;
+}
+
+function transformRegistrationSuccessPopupType(cfg) {
+	const hasKyc = cfg.REGISTRATION.KYC_POPUP;
+	const hasDepositButton = cfg.REGISTRATION.SHOW_SUCCESS_POPUP_BUTTON;
+
+	if (hasKyc) {
+		return 'kyc';
+	} else if (hasDepositButton) {
+		return 'deposit';
+	} else {
+		return 'default';
+	}
 }
