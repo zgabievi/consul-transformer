@@ -152,7 +152,7 @@ const groups = {
 		'DefaultPromotionWidthInBothOnMobile',
 		'DefaultPromotionHeightInBothOnMobile'
 	],
-	'country-restrictions': ['RedirectByCountry', 'ListOfHiddenCountries'],
+	'country-restrictions': ['RedirectByCountry', 'ListOfHiddenCountries', 'ListOfBlockedCountries'],
 	header: [
 		'HasIntegratedMenu',
 		'DialCodeForUserIdentifier',

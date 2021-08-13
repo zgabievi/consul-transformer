@@ -142,6 +142,7 @@ const schema = {
 	'UTM.MAPPING': 'UtmMapping',
 	'CORE_DOCUMENT.DEFAULT_TYPE': 'DefaultDocumentTypeId',
 	HIDDEN_COUNTRIES: 'ListOfHiddenCountries',
+	BLOCKED_COUNTRIES: 'ListOfBlockedCountries',
 	DEBUG: 'Debug',
 	USER_CAN_CHANGE_EMAIL: 'UserCanChangeEmail',
 	USER_CAN_CHANGE_MOBILE: 'UserCanChangeMobile',
@@ -166,7 +167,8 @@ const schema = {
 	'CORE_DOCUMENT.REQUIRED_TYPES': 'RequiredDocumentTypes',
 	USER_ADDITIONAL_DATA_FIELDS: 'AdditionalDataFieldsOfUser',
 	'REGISTRATION.KYC_STEPS': 'KycSteps',
-	USER_ADDRESS_FIELDS: 'AddressFields'
+	USER_ADDRESS_FIELDS: 'AddressFields',
+	'ID_DOCUMENT_FIELDS.HAS_PERSONAL_ID': 'ShowPersonalIdInDocumentsList'
 };
 
 export const transform = (obj) => {
