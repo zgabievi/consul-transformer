@@ -5,7 +5,6 @@ const groups = {
 		'HasCookieBanner',
 		'HasWelcomePage',
 		'HasScrollToTop',
-		'PaymentIntegration',
 		'IframeZoomLevel'
 	],
 	seo: [
@@ -19,7 +18,7 @@ const groups = {
 		'DefaultGameSeoDescription',
 		'DefaultGameSeoKeywords'
 	],
-	game: [
+	games: [
 		'HasPictureInPictureMode',
 		'HasDemoPlay',
 		'GameOpenStrategy',
@@ -30,7 +29,8 @@ const groups = {
 		'ShowGameProvider',
 		'GameHasAddToFavorites',
 		'GameHasPlayNowIcon',
-		'TournamentsGameId'
+		'TournamentsGameId',
+		'SingularIntegrationSystemProviderID'
 	],
 	registration: [
 		'MinAgeForRegistration',
@@ -72,11 +72,7 @@ const groups = {
 		'WagerLimitRange',
 		'LossLimitRange'
 	],
-	providers: [
-		'DocumentUploadProviderID',
-		'SingularIntegrationSystemProviderID',
-		'PaymentsProviderID'
-	],
+	payments: ['PaymentsProviderID', 'PaymentIntegration'],
 	themes: ['ListOfThemes', 'DefaultTheme', 'DefaultPalette'],
 	kyc: ['HasKyc', 'KycSteps', 'UserShouldVerifyAddress'],
 	documents: [
@@ -92,11 +88,12 @@ const groups = {
 		'HasDocumentIssuingAuthority',
 		'HasDocumentIssuingPlace',
 		'HasDocumentIssueDate',
-		'KycProvider',
-		'KycProviderOptions'
+		'DocumentVerificationProvider',
+		'DocumentVerificationProviderOptions',
+		'DocumentUploadProviderID'
 	],
 	utm: ['UtmTtl', 'UtmMapping'],
-	'transaction-history': [
+	transactions: [
 		'SupportedTransactionTypes',
 		'SupportedTransactionStatuses',
 		'SupportedTransactionProviders',
@@ -173,12 +170,12 @@ const groups = {
 	'form-controls': ['UsernameCustomLabel', 'InputLabelPosition']
 };
 
-export const findInGroup = key => {
-    const result = Object.entries(groups).find(([_, keys]) => keys.includes(key));
+export const findInGroup = (key) => {
+	const result = Object.entries(groups).find(([_, keys]) => keys.includes(key));
 
 	if (!result) {
 		console.error(key);
 	}
 
-    return result ? result[0] : 'generic';
+	return result ? result[0] : 'generic';
 };
