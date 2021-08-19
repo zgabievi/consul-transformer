@@ -51,7 +51,8 @@ const groups = {
 		'HasVoiceCallNotifications',
 		'HasEmailNotifications',
 		'HasSmsNotifications',
-		'CanDeleteAccount'
+		'CanDeleteAccount',
+		'DefaultActiveNotifications'
 	],
 	rpg: [
 		'HasResponsibleGaming',

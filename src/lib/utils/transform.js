@@ -148,6 +148,7 @@ const schema = {
 	USER_CAN_CHANGE_MOBILE: 'UserCanChangeMobile',
 	USER_CAN_CHANGE_ADDRESS: 'UserCanChangeAddress',
 	'REGISTRATION.SHOULD_VERIFY_ADDRESS': 'UserShouldVerifyAddress',
+	DEFAULT_ACTIVE_NOTIFICATIONS: 'DefaultActiveNotifications',
 	HAS_VOICE_CALL_NOTIFICATIONS: 'HasVoiceCallNotifications',
 	HAS_EMAIL_NOTIFICATIONS: 'HasEmailNotifications',
 	HAS_SMS_NOTIFICATIONS: 'HasSmsNotifications',
