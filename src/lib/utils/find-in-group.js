@@ -100,7 +100,7 @@ const groups = {
 		'SupportedTransactionProviders',
 		'TransactionHistoryFilterType'
 	],
-	'images-sizes': [
+	'image-sizes': [
 		'BlockSliderWidthInBothOnDesktop',
 		'BlockSliderHeightInBothOnDesktop',
 		'FluidSliderWidthInServerOnDesktop',
