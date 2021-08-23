@@ -106,7 +106,7 @@
 		</div>
 
 		<pre
-			class="px-2 pt-1.5 pb-1 bg-gray-200 border border-gray-300 rounded-md whitespace-pre-wrap max-h-96 overflow-scroll">
+			class="px-2 pt-1.5 pb-1 bg-gray-200 border border-gray-300 rounded-md whitespace-pre-wrap max-h-96 overflow-auto">
 			{ JSON.stringify(transformedJson[group], null, 2) }
 		</pre>
 	</div>
@@ -126,10 +126,11 @@
 
 			{#each missingKeys as setOfKeys}
 				<div class="flex items-center w-full space-x-2">
-					<div class="w-2/3 px-1 overflow-x-scroll bg-gray-200 border border-gray-300">
+					<div class="w-2/3 px-1 overflow-x-hidden bg-gray-200 border border-gray-300">
 						{setOfKeys.oldKey}
 					</div>
-					<div class="w-1/3 px-1 overflow-x-scroll bg-gray-200 border border-gray-300">
+					
+					<div class="w-1/3 px-1 overflow-x-hidden bg-gray-200 border border-gray-300">
 						{setOfKeys.newKey}
 					</div>
 				</div>
