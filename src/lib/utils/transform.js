@@ -195,8 +195,8 @@ export const transform = (obj) => {
 				transformedValue = transformDocumentUploadForm(value);
 			} else if (newKey === 'RegistrationSuccessPopupType') {
 				transformedValue = transformRegistrationSuccessPopupType(workObj);
-			} else if (newKey === 'KycProviderOptions') {
-				transformedValue = transformKycProviderOptions(value);
+			} else if (newKey === 'DocumentVerificationProviderOptions') {
+				transformedValue = transformDocumentVerificationProviderOptions(value);
 			}
 
 			newObj[group] = {
@@ -277,7 +277,7 @@ function transformDocumentUploadForm(value) {
 	return transformedValue;
 }
 
-function transformKycProviderOptions(value) {
+function transformDocumentVerificationProviderOptions(value) {
 	const transformedValue = {};
 
 	Object.entries(value).forEach(([providerName, providerObj]) => {
