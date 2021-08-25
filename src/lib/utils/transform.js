@@ -263,7 +263,7 @@ function transformDocumentUploadForm(value) {
 			}
 
 			if ('REQUIRED' in image) {
-				newImg.required = image.ACCEPTED_FILE_TYPES;
+				newImg.required = image.REQUIRED;
 			}
 
 			return newImg;
